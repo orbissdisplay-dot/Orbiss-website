@@ -745,7 +745,7 @@
           <label for="message">Event date and details</label>
           <textarea id="message" name="message" placeholder="e.g. Wedding reception, 14 Dec, ~400 guests, Mangaluru"></textarea>
         </div>
-        <button type="submit" class="submit-btn">Send enquiry</button>
+        <button type="submit" class="submit-btn">Send enquiry on WhatsApp</button>
       </form>
     </div>
   </section>
@@ -795,7 +795,24 @@
 
   document.getElementById('quoteForm').addEventListener('submit', function(e){
     e.preventDefault();
-    alert('Thanks. This form needs to be connected to email or a backend to actually receive enquiries. Ask your developer to wire it up to a service like Formspree, or a WhatsApp click-to-chat link.');
+
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const city = document.getElementById('city').value;
+    const service = document.getElementById('service').value;
+    const message = document.getElementById('message').value.trim();
+
+    let text = `Hi Orbiss, I'd like to get a quote.%0A%0A`;
+    text += `Name: ${encodeURIComponent(name)}%0A`;
+    text += `Phone: ${encodeURIComponent(phone)}%0A`;
+    text += `City: ${encodeURIComponent(city)}%0A`;
+    text += `Service: ${encodeURIComponent(service)}%0A`;
+    if (message){
+      text += `Details: ${encodeURIComponent(message)}`;
+    }
+
+    const whatsappUrl = `https://wa.me/918861183407?text=${text}`;
+    window.open(whatsappUrl, '_blank');
   });
 </script>
 
